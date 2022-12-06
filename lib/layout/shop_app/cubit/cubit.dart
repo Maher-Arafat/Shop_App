@@ -123,7 +123,7 @@ class ShopCubit extends Cubit<ShopStates> {
       token: token,
     ).then((value) {
       userModel = ShopLoginModel.fromJson(value.data!);
-      print(value.data);
+      //print(value.data);
       emit(ShopSuccessUserDataState(userModel!));
     }).catchError((error) {
       print(error.toString());
@@ -141,13 +141,13 @@ class ShopCubit extends Cubit<ShopStates> {
       url: UPDATE_PROFILE,
       token: token,
       data: {
-        name: 'name',
-        email: 'email',
-        phone: 'phone',
+        'name':name,
+        'email':email,
+        'phone':phone,
       },
     ).then((value) {
+      //print(value.data);
       userModel = ShopLoginModel.fromJson(value.data);
-      print(value.data);
       emit(ShopSuccessUpdateUserState(userModel!));
     }).catchError((error) {
       print(error.toString());
