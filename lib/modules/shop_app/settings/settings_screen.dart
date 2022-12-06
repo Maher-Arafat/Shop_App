@@ -26,22 +26,22 @@ class SettingsScreen extends StatelessWidget {
           phoneCntrlr.text = model.data!.phone!;
           return ConditionalBuilder(
             condition: ShopCubit.get(context).userModel != null,
-            builder: (context) => Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    const CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/login.jpg'),
-                      radius: 70,
-                    ),
-                    const SizedBox(height: 15),
-                    if (state is ShopLoadingUpdateUserState)
-                      const LinearProgressIndicator(),
-                    const SizedBox(height: 15),
-                    Expanded(
-                      child: Column(
+            builder: (context) => SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      const CircleAvatar(
+                        backgroundImage: AssetImage('assets/images/login.jpg'),
+                        radius: 70,
+                      ),
+                      const SizedBox(height: 15),
+                      if (state is ShopLoadingUpdateUserState)
+                        const LinearProgressIndicator(),
+                      const SizedBox(height: 15),
+                      Column(
                         children: [
                           defultFormField(
                             controller: nameCntrlr,
@@ -97,9 +97,9 @@ class SettingsScreen extends StatelessWidget {
                               },
                               text: 'Logout'),
                         ],
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
