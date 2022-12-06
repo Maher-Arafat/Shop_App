@@ -129,7 +129,7 @@ Widget buildListProduct(
                   width: 120,
                   height: 120,
                 ),
-                if (model.discount! != 0 && isOldPrice)
+                if (model.discount != 0 && isOldPrice)
                   Container(
                     padding: const EdgeInsets.all(5),
                     color: Colors.red,
@@ -150,7 +150,7 @@ Widget buildListProduct(
                 children: [
                   Text(
                     //2
-                    '${model.name!}',
+                    '${model.name}',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -163,15 +163,15 @@ Widget buildListProduct(
                     children: [
                       Text(
                         //3
-                        '${model.price!.round()}',
+                        '${model.price.round()}',
                         maxLines: 2,
                         style: TextStyle(fontSize: 14, color: defaultColor),
                       ),
                       const SizedBox(width: 5.0),
-                      if (model.discount! != 0 && isOldPrice)
+                      if (model.discount != 0 && isOldPrice)
                         Text(
                           //4
-                          '${model.oldPrice!.round()}',
+                          '${model.oldPrice.round()}',
                           maxLines: 2,
                           style: const TextStyle(
                             fontSize: 10,
