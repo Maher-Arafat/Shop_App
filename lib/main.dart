@@ -1,9 +1,8 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/layout/shop_app/cubit/cubit.dart';
 import 'package:newapp/layout/shop_app/shop_layout.dart';
 import 'package:newapp/modules/shop_app/login/login_screen.dart';
 
@@ -15,6 +14,8 @@ import 'package:newapp/shared/cubit/appcubit/cubit.dart';
 import 'package:newapp/shared/cubit/appcubit/states.dart';
 import 'package:newapp/shared/bloc_oserver.dart';
 import 'package:newapp/shared/styles/themes.dart';
+
+import 'layout/shop_app/cubit/cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,14 +59,15 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) =>
-              AppCubit(),//..changeModeState(darkfromShared: isDark),
+              AppCubit(), //..changeModeState(darkfromShared: isDark),
         ),
         BlocProvider(
           create: (context) => ShopCubit()
             ..getHomeData()
             ..getCategoriesData()
             ..getFavorites()
-            ..getUserData(),
+            ..getUserData()
+            //..getCategoryDetails(),
         ),
       ],
       child: BlocConsumer<AppCubit, AppStates>(

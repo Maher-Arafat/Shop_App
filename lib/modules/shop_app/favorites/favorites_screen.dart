@@ -1,11 +1,11 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/models/shop_app/favorites_model.dart';
 
-import '../../../../layout/shop_app/cubit/cubit.dart';
 import '../../../../layout/shop_app/cubit/states.dart';
 import '../../../../shared/components/components.dart';
+import '../../../layout/shop_app/cubit/cubit.dart';
+import '../../../models/favorites_model.dart';
 import '../../../shared/styles/colors.dart';
 
 class FavoriteScreen extends StatelessWidget {
@@ -41,7 +41,7 @@ Widget buildFavItem(
 }) =>
     Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Container(
+      child: SizedBox(
         height: 120,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,

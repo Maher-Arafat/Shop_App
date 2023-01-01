@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/layout/shop_app/cubit/cubit.dart';
 import 'package:newapp/layout/shop_app/cubit/states.dart';
 import 'package:newapp/modules/shop_app/search/search_screen.dart';
 
+import 'cubit/cubit.dart';
 import '../../shared/cubit/appcubit/cubit.dart';
 
 class ShopLayOut extends StatelessWidget {

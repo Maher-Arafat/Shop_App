@@ -3,10 +3,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/layout/shop_app/cubit/states.dart';
-import 'package:newapp/models/shop_app/categories_model.dart';
-import 'package:newapp/models/shop_app/favorites_model.dart';
-import 'package:newapp/models/shop_app/home_model.dart';
-import 'package:newapp/models/shop_app/login_model.dart';
+import 'package:newapp/models/Product_detail_model.dart';
+import 'package:newapp/models/categories_model.dart';
+import 'package:newapp/models/change_favorites_model.dart';
+import 'package:newapp/models/favorites_model.dart';
+import 'package:newapp/models/home_model.dart';
+import 'package:newapp/models/login_model.dart';
 import 'package:newapp/modules/shop_app/categories/categories_screen.dart';
 import 'package:newapp/modules/shop_app/favorites/favorites_screen.dart';
 import 'package:newapp/modules/shop_app/products/products_screen.dart';
@@ -15,7 +17,7 @@ import 'package:newapp/network/remote/dio_helper.dart';
 import 'package:newapp/network/remote/end_points.dart';
 import 'package:newapp/shared/components/constants.dart';
 
-import '../../../models/shop_app/change_favorites_model.dart';
+import '../../../../../models/categorydetail_model.dart';
 
 class ShopCubit extends Cubit<ShopStates> {
   ShopCubit() : super(ShopInitialState());
@@ -68,6 +70,41 @@ class ShopCubit extends Cubit<ShopStates> {
     }).catchError((error) {
       //print(error.toString());
       emit(ShopErrorCategoriesState());
+    });
+  }
+
+  ProductDetailModel? productDetailModel;
+  void getProductDetails({int? id, bool isSearch = true}) {
+    if (isSearch == true) {
+      emit(ShopProductDetailLoadingState());
+    } else {
+      emit(ShopLoadingFromSearchProductDetailsState());
+    }
+    ShDioHelper.getData(
+      url: 'products/$id',
+      token: token,
+    ).then((value) {
+      productDetailModel = ProductDetailModel.fromJson(value.data!);
+      emit(ShopProductDetailSuccessState());
+    }).catchError((error) {
+      print('Error from product details');
+      emit(ShopProductDetailErrorState());
+    });
+  }
+
+  CategoryDetailModel? categoryDetailModel;
+  getCategoryDetails(int? id, String? name) {
+    emit(ShopCategoryDetailLoadingState());
+    ShDioHelper.getData(
+      url: 'categories/$id',
+      token: token,
+    ).then((value) {
+      categoryDetailModel = CategoryDetailModel.fromJson(value.data!);
+      emit(ShopCategoryDetailSuccessState(name ?? "Salla"));
+    }).catchError((error) {
+      print(error.toString());
+      print('Error from category details');
+      emit(ShopCategoryDetailErrorState());
     });
   }
 
@@ -141,9 +178,9 @@ class ShopCubit extends Cubit<ShopStates> {
       url: UPDATE_PROFILE,
       token: token,
       data: {
-        'name':name,
-        'email':email,
-        'phone':phone,
+        'name': name,
+        'email': email,
+        'phone': phone,
       },
     ).then((value) {
       //print(value.data);

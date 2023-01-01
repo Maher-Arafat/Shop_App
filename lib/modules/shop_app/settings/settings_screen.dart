@@ -3,10 +3,11 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/layout/shop_app/cubit/cubit.dart';
 import 'package:newapp/layout/shop_app/cubit/states.dart';
 import 'package:newapp/shared/components/components.dart';
 import 'package:newapp/shared/components/constants.dart';
+
+import '../../../layout/shop_app/cubit/cubit.dart';
 
 class SettingsScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();

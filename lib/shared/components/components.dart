@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../layout/shop_app/cubit/cubit.dart';
-
 import '../styles/colors.dart';
 
 Widget myDivder() => Container(
@@ -206,3 +205,4 @@ Widget buildListProduct(
         ),
       ),
     );
+
