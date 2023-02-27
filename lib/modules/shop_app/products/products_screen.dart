@@ -104,11 +104,11 @@ class ProductsScreen extends StatelessWidget {
                         physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, idx) => buildCategoryItem(
-                            categoriesModel.data.data[idx], context),
+                            categoriesModel.data!.data![idx], context),
                         separatorBuilder: (context, idx) => const SizedBox(
                               width: 10,
                             ),
-                        itemCount: categoriesModel!.data.data.length),
+                        itemCount: categoriesModel!.data!.data!.length),
                   ),
                   const SizedBox(height: 20),
                   const Text(
@@ -332,7 +332,7 @@ class ProductsScreen extends StatelessWidget {
           alignment: AlignmentDirectional.bottomCenter,
           children: [
             Image(
-              image: NetworkImage(model.image),
+              image: NetworkImage(model.image!),
               height: 100,
               width: 100,
               fit: BoxFit.cover,
@@ -341,7 +341,7 @@ class ProductsScreen extends StatelessWidget {
               width: 100,
               color: Colors.black.withOpacity(.8),
               child: Text(
-                model.name,
+                model.name!,
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

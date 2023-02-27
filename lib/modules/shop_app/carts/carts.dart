@@ -21,7 +21,7 @@ class CartScreen extends StatelessWidget {
     return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {
         if (state is ShopChangeSuccessCartItemState) {
-          ShowToast(text: state.model.message, state: ToastStates.SUCCESS);
+          ShowToast(text: state.model.message!, state: ToastStates.SUCCESS);
         }
         if (state is ShopSuccessChangeQuantityItemState) {
           ShowToast(text: state.model.message!, state: ToastStates.SUCCESS);
@@ -176,7 +176,7 @@ Widget buildCartItem(CartItem? model, total, context) {
                       borderRadius: BorderRadius.circular(18),
                     ),
                     child: Image(
-                      image: NetworkImage(model!.product.image!),
+                      image: NetworkImage(model!.product!.image!),
                     ),
                   ),
                 ),
@@ -186,7 +186,7 @@ Widget buildCartItem(CartItem? model, total, context) {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        model.product.name!,
+                        model.product!.name!,
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -205,10 +205,10 @@ Widget buildCartItem(CartItem? model, total, context) {
                               Text(
                                 NumberFormat.currency(
                                         decimalDigits: 0, symbol: "")
-                                    .format(model.product.price! *
+                                    .format(model.product!.price! *
                                         (ShopCubit.get(context)
                                                 .productsQuantity[
-                                            model.product.id!])),
+                                            model.product!.id!])),
                                 style: const TextStyle(
                                   fontSize: 18,
                                   color: Colors.black,
@@ -226,9 +226,9 @@ Widget buildCartItem(CartItem? model, total, context) {
                             ],
                           ),
                           const SizedBox(width: 10),
-                          if (model.product.discount! > 0)
+                          if (model.product!.discount! > 0)
                             Text(
-                              '${NumberFormat.currency(decimalDigits: 0, symbol: "").format(model.product.oldPrice)} \$',
+                              '${NumberFormat.currency(decimalDigits: 0, symbol: "").format(model.product!.oldPrice)} \$',
                               style: const TextStyle(
                                 fontSize: 15,
                                 color: Colors.grey,
@@ -251,7 +251,7 @@ Widget buildCartItem(CartItem? model, total, context) {
                   children: [
                     InkWell(
                       onTap: () => ShopCubit.get(context)
-                          .changeQuantityItem(model.product.id!),
+                          .changeQuantityItem(model.product!.id!),
                       child: Container(
                         height: 30,
                         width: 30,
@@ -274,7 +274,7 @@ Widget buildCartItem(CartItem? model, total, context) {
                     ),
                     const SizedBox(width: 20),
                     Text(
-                      '${ShopCubit.get(context).productsQuantity[model.product.id!] != null ? ShopCubit.get(context).productsQuantity[model.product.id!] : model.quantity}',
+                      '${ShopCubit.get(context).productsQuantity[model.product!.id!] != null ? ShopCubit.get(context).productsQuantity[model.product!.id!] : model.quantity}',
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -284,10 +284,10 @@ Widget buildCartItem(CartItem? model, total, context) {
                     InkWell(
                       onTap: () {
                         if (ShopCubit.get(context)
-                                .productsQuantity[model.product.id!]! >
+                                .productsQuantity[model.product!.id!]! >
                             1) {
                           ShopCubit.get(context).changeQuantityItem(
-                            model.product.id!,
+                            model.product!.id!,
                             icrnmt: false,
                           );
                         }
@@ -297,10 +297,10 @@ Widget buildCartItem(CartItem? model, total, context) {
                         width: 30,
                         decoration: BoxDecoration(
                             color: ShopCubit.get(context).productsQuantity[
-                                            model.product.id] ==
+                                            model.product!.id] ==
                                         1 ||
                                     ShopCubit.get(context).productsQuantity[
-                                            model.product.id] ==
+                                            model.product!.id] ==
                                         null
                                 ? Colors.red.withOpacity(0.4)
                                 : defaultColor,
@@ -324,11 +324,11 @@ Widget buildCartItem(CartItem? model, total, context) {
                 const Spacer(),
                 IconButton(
                   onPressed: () {
-                    ShopCubit.get(context).changeFavorites(model.product.id!);
+                    ShopCubit.get(context).changeFavorites(model.product!.id!);
                   },
                   icon: CircleAvatar(
                     backgroundColor:
-                        ShopCubit.get(context).favorities[model.product.id]!
+                        ShopCubit.get(context).favorities[model.product!.id]!
                             ? defaultColor
                             : Colors.grey,
                     radius: 15,
@@ -341,7 +341,7 @@ Widget buildCartItem(CartItem? model, total, context) {
                 ),
                 IconButton(
                   onPressed: () {
-                    ShopCubit.get(context).changeCartItem(model.product.id!);
+                    ShopCubit.get(context).changeCartItem(model.product!.id!);
                   },
                   icon: const CircleAvatar(
                     backgroundColor: Colors.red,

@@ -164,8 +164,8 @@ class ShopCubit extends Cubit<ShopStates> {
     ).then((value) {
       cartsModel = CartsModel.fromJson(value.data);
       cartsModel!.data!.crtItms!.forEach((element) {
-        productCartId[element.product.id!] = element.id;
-        productsQuantity[element.product.id!] = element.quantity;
+        productCartId[element.product!.id!] = element.id!;
+        productsQuantity[element.product!.id!] = element.quantity;
       });
       cartItms.addAll(productCartId.values);
       emit(ShopChangeSuccessCartsState());

@@ -34,8 +34,8 @@ class CategoryDetailScreen extends StatelessWidget {
               child: Container(
                   child: ShopCubit.get(context)
                           .categoryDetailModel!
-                          .data
-                          .data
+                          .data!
+                          .data!
                           .isNotEmpty
                       ? buildCatDetail(
                           ShopCubit.get(context).categoryDetailModel!, context)
@@ -79,8 +79,8 @@ class CategoryDetailScreen extends StatelessWidget {
           childAspectRatio: 1 / 1.71,
           crossAxisCount: 2,
           children: List.generate(
-            catDModel!.data.data.length,
-            (index) => buildGridProduct(catDModel.data.data[index], context),
+            catDModel!.data!.data!.length,
+            (index) => buildGridProduct(catDModel.data!.data![index], context),
           ),
         ),
       );
@@ -100,7 +100,7 @@ class CategoryDetailScreen extends StatelessWidget {
                   alignment: AlignmentDirectional.bottomStart,
                   children: [
                     Image(
-                      image: NetworkImage(model!.image),
+                      image: NetworkImage(model!.image!),
                       width: double.infinity,
                       height: 200,
                     ),
@@ -136,7 +136,7 @@ class CategoryDetailScreen extends StatelessWidget {
                         children: [
                           IconButton(
                             onPressed: () {
-                              ShopCubit.get(context).changeCartItem(model.id);
+                              ShopCubit.get(context).changeCartItem(model.id!);
                             },
                             icon: CircleAvatar(
                               backgroundColor: defaultColor,
@@ -173,7 +173,7 @@ class CategoryDetailScreen extends StatelessWidget {
                           const Spacer(),
                           IconButton(
                             onPressed: () {
-                              ShopCubit.get(context).changeFavorites(model.id);
+                              ShopCubit.get(context).changeFavorites(model.id!);
                               ShopCubit.get(context).getFavorites();
                             },
                             icon: CircleAvatar(

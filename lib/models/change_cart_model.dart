@@ -1,7 +1,7 @@
 //add_cart_model
 class ChangeCartModel {
-  late bool status;
-  late String message;
+  bool? status;
+  String? message;
   late AddToCartData data;
 
   ChangeCartModel.fromJson(Map<String, dynamic> json) {
@@ -12,8 +12,8 @@ class ChangeCartModel {
 }
 
 class AddToCartData {
-  late int id;
-  late int quantity;
+  int? id;
+  int? quantity;
   late Product product;
   AddToCartData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -23,13 +23,13 @@ class AddToCartData {
 }
 
 class Product {
-  late int id;
-  late double price;
-  late double oldPrice;
-  late int discount;
-  late String image;
-  late String name;
-  late String descrption;
+  int? id;
+  dynamic price;
+  dynamic oldPrice;
+  int? discount;
+  String? image;
+  String? name;
+  String? descrption;
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['id'];

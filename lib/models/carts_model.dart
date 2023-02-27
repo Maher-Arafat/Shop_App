@@ -23,9 +23,9 @@ class CartData {
 }
 
 class CartItem {
-  late int id;
-  late int quantity;
-  late ProductsModel product;
+  int? id;
+  int? quantity;
+  ProductsModel? product;
   CartItem.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     quantity = json['quantity'];
