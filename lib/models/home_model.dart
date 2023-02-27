@@ -31,13 +31,13 @@ class BannerModel {
 
 class ProductsModel {
    int? id;
-   dynamic price;
-   dynamic oldPrice;
+   double? price;
+   double? oldPrice;
    String? image;
    String? name;
    bool? inFavs;
    bool? inCart;
-   dynamic discount;
+   double? discount;
   ProductsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     price = json['price'];

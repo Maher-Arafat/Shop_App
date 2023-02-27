@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:newapp/layout/shop_app/cubit/cubit.dart';
 import 'package:newapp/network/local/cach_helper.dart';
 
 import '../../modules/shop_app/login/login_screen.dart';
@@ -11,6 +12,9 @@ void signOut(context) {
   ).then((value) {
     if (value) {
       AppCubit.get(context).navigateFinish(context, ShopLoginScreen());
+      ShopCubit.get(context).productsQuantity.clear();
+      ShopCubit.get(context).totalCarts = 0;
+      ShopCubit.get(context).crntIdx = 0;
     }
   });
 }

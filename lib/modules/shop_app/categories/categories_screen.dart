@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/modules/category_details/category_details.dart';
+import 'package:newapp/modules/shop_app/category_details/category_details.dart';
 import 'package:newapp/shared/components/components.dart';
 import 'package:newapp/shared/cubit/appcubit/cubit.dart';
 

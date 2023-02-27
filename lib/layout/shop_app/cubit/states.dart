@@ -1,3 +1,7 @@
+import 'package:newapp/models/change_cart_model.dart';
+import 'package:newapp/models/order_model.dart';
+import 'package:newapp/models/update_cart_model.dart';
+
 import '../../../models/change_favorites_model.dart';
 import '../../../models/login_model.dart';
 
@@ -16,6 +20,69 @@ class ShopErrorHomeState extends ShopStates {}
 class ShopSuccessCategoriesState extends ShopStates {}
 
 class ShopErrorCategoriesState extends ShopStates {}
+
+class ShopLoadingCartsState extends ShopStates {}
+
+class ShopChangeSuccessCartsState extends ShopStates {}
+
+class ShopErrorChangeCartsState extends ShopStates {}
+
+class ShopLoadingCartItemState extends ShopStates {}
+
+class ShopChangeSuccessCartItemState extends ShopStates {
+  final ChangeCartModel model;
+  ShopChangeSuccessCartItemState(this.model);
+}
+
+class ShopErrorChangeCartItemState extends ShopStates {}
+
+class ShopLoadingChangeCartState extends ShopStates {}
+
+class ShopSuccessChangeCartState extends ShopStates {}
+
+class ShopSrrorChangeCartState extends ShopStates {}
+
+class ShopLoadingChangeQuantityItemState extends ShopStates {}
+
+class ShopSuccessChangeQuantityItemState extends ShopStates {
+  final UpdateCartModel model;
+  ShopSuccessChangeQuantityItemState(this.model);
+}
+
+class ShopErrorChangeQuantityItemState extends ShopStates {}
+
+class ShopLoadingAddOrderState extends ShopStates {}
+
+class ShopSuccessAddOrderState extends ShopStates {
+  AddOrderModel model;
+  ShopSuccessAddOrderState(this.model);
+}
+
+class ShopErrorAddOrderState extends ShopStates {}
+
+class ShopLoadingGetOrdersState extends ShopStates {}
+
+class ShopSuccessGetOrdersState extends ShopStates {}
+
+class ShopErrorGetOrdersState extends ShopStates {}
+
+class ShopLoadingOrderDetailsState extends ShopStates {}
+
+class ShopSuccessOrderDetailsState extends ShopStates {
+  final OrderDetailsModel orderItemsDetails;
+  ShopSuccessOrderDetailsState(this.orderItemsDetails);
+}
+
+class ShopErrorOrderDetailsState extends ShopStates {}
+
+class ShopCancelLoadingOrderState extends ShopStates {}
+
+class ShopCancelSuccessOrderState extends ShopStates {
+  final CancelOrderModel cancelOrderModel;
+  ShopCancelSuccessOrderState(this.cancelOrderModel);
+}
+
+class ShopCancelErrorOrderState extends ShopStates {}
 
 class ShopCategoryDetailLoadingState extends ShopStates {}
 

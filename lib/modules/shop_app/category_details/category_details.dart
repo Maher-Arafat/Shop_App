@@ -7,8 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/layout/shop_app/cubit/states.dart';
 import 'package:newapp/models/categorydetail_model.dart';
 
-import '../../layout/shop_app/cubit/cubit.dart';
-import '../../shared/styles/colors.dart';
+import '../../../layout/shop_app/cubit/cubit.dart';
+import '../../../shared/styles/colors.dart';
 
 class CategoryDetailScreen extends StatelessWidget {
   String? name;
@@ -25,11 +25,12 @@ class CategoryDetailScreen extends StatelessWidget {
           appBar: AppBar(
             titleSpacing: 0.0,
             title: Text(name ?? "Salla"),
+            centerTitle: true,
           ),
           body: ConditionalBuilder(
             condition: ShopCubit.get(context).categoryDetailModel != null,
             builder: (context) => SingleChildScrollView(
-              physics:const BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Container(
                   child: ShopCubit.get(context)
                           .categoryDetailModel!
@@ -37,7 +38,7 @@ class CategoryDetailScreen extends StatelessWidget {
                           .data!
                           .isNotEmpty
                       ? buildCatDetail(
-                          ShopCubit.get(context).categoryDetailModel, context)
+                          ShopCubit.get(context).categoryDetailModel!, context)
                       : buildErrorCatDetail(context)),
             ),
             fallback: (context) => const Center(
@@ -56,15 +57,6 @@ class CategoryDetailScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircleAvatar(
-                radius: 40.0,
-                backgroundColor: defaultColor,
-                child:const Icon(
-                  Icons.face_unlock_rounded,
-                  size: 40,
-                  color: Colors.white,
-                ),
-              ),
               const SizedBox(height: 1),
               Text(
                 'Unfortunately, ${name!} is empty now !',
@@ -142,22 +134,42 @@ class CategoryDetailScreen extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Text(
-                            '${model.price.round()}',
-                            maxLines: 2,
-                            style: TextStyle(fontSize: 14, color: defaultColor),
-                          ),
-                          const SizedBox(width: 5.0),
-                          if (model.discount != 0)
-                            Text(
-                              '${model.oldPrice.round()}',
-                              maxLines: 2,
-                              style: const TextStyle(
-                                fontSize: 10,
-                                color: Colors.grey,
-                                decoration: TextDecoration.lineThrough,
+                          IconButton(
+                            onPressed: () {
+                              ShopCubit.get(context).changeCartItem(model.id!);
+                            },
+                            icon: CircleAvatar(
+                              backgroundColor: defaultColor,
+                              radius: 15,
+                              child: const Icon(
+                                Icons.shopping_cart_outlined,
+                                color: Colors.white,
+                                size: 14,
                               ),
                             ),
+                          ),
+                          const Spacer(),
+                          Column(
+                            children: [
+                              Text(
+                                '${model.price.round()}',
+                                maxLines: 2,
+                                style: TextStyle(
+                                    fontSize: 14, color: defaultColor),
+                              ),
+                              //const SizedBox(width: 5.0),
+                              if (model.discount != 0)
+                                Text(
+                                  '${model.oldPrice.round()}',
+                                  maxLines: 2,
+                                  style: const TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.grey,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                ),
+                            ],
+                          ),
                           const Spacer(),
                           IconButton(
                             onPressed: () {

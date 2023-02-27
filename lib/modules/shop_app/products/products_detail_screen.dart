@@ -24,12 +24,39 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        ProductDetailModel model = ShopCubit.get(context).productDetailModel!;
+        ProductDetailModel? model = ShopCubit.get(context).productDetailModel;
         return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            title: const Text(
+              'Salla',
+              style: TextStyle(fontSize: 20),
+            ),
+            centerTitle: true,
+            actions: [
+              if (ShopCubit.get(context).productDetailModel != null)
+                IconButton(
+                  onPressed: () {
+                    ShopCubit.get(context).changeFavorites(model.data!.id!);
+                  },
+                  icon: CircleAvatar(
+                    backgroundColor:
+                        ShopCubit.get(context).favorities[model!.data!.id!]!
+                            ? defaultColor
+                            : Colors.grey,
+                    radius: 15,
+                    child: const Icon(
+                      Icons.favorite_border,
+                      color: Colors.white,
+                      size: 14,
+                    ),
+                  ),
+                ),
+              const SizedBox(width: 7),
+            ],
+          ),
           body: ConditionalBuilder(
             condition: model != null,
-            builder: (context) => buildProductDetail(model, context),
+            builder: (context) => buildProductDetail(model!, context),
             fallback: (context) => const Center(
               child: CircularProgressIndicator(),
             ),
@@ -39,7 +66,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     );
   }
 
-  Widget buildProductDetail(ProductDetailModel? model, context) =>
+  Widget buildProductDetail(ProductDetailModel model, context) =>
       SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Container(
@@ -52,7 +79,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 Stack(
                   children: [
                     CarouselSlider(
-                      items: model?.data!.images!
+                      items: model.data!.images!
                           .map((e) => Image(
                               image: NetworkImage(e),
                               fit: BoxFit.contain,
@@ -74,7 +101,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         }),
                       ),
                     ),
-                    if (model!.data!.discount != 0)
+                    if (model.data!.discount != 0)
                       Container(
                         padding: const EdgeInsets.all(5),
                         color: Colors.red,
@@ -110,7 +137,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Row(children: [
                     Container(
-                      decoration:const BoxDecoration(
+                      decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),
                         ),
@@ -149,12 +176,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   child: Row(
                     children: [
                       Container(
-                        decoration:const BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          color: Color.fromARGB(255, 133, 194, 187),
                         ),
-                        color: Color.fromARGB(255, 133, 194, 187),
-                      ),
                         padding: const EdgeInsets.all(5),
                         width: 70,
                         child: Text(
@@ -173,7 +200,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           child: Row(
                             children: [
                               Text(
-                                '${model.data!.price.round()}',
+                                '${model.data!.price}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyText2
@@ -183,8 +210,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 const SizedBox(width: 10),
                               if (model.data!.discount != 0)
                                 Text(
-                                  '${model.data!.oldPrice.round()}',
-                                  style: TextStyle(
+                                  '${model.data!.oldPrice}',
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey,
                                     decoration: TextDecoration.lineThrough,
@@ -204,12 +231,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        decoration:const BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          color: Color.fromARGB(255, 133, 194, 187),
                         ),
-                        color: Color.fromARGB(255, 133, 194, 187),
-                      ),
                         padding: const EdgeInsets.all(5),
                         width: 70,
                         child: Text(

@@ -66,4 +66,20 @@ class ShDioHelper {
       data: data,
     );
   }
+
+  static Future<Response> deleteData({
+    required url,
+    Map<String, dynamic>? query,
+    String lang = 'en',
+    String? token,
+  }) async {
+    dio.options.headers = {
+      'Content-Type': 'application/json',
+      'lang': lang,
+      'Authorization': token ?? '',
+    };
+    return dio.delete(url).catchError((error) {
+      print('Deleted Dio Happend $error');
+    });
+  }
 }

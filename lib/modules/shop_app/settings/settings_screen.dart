@@ -48,8 +48,9 @@ class SettingsScreen extends StatelessWidget {
                             controller: nameCntrlr,
                             type: TextInputType.name,
                             validate: (String? value) {
-                              if (value!.isEmpty)
+                              if (value!.isEmpty) {
                                 return 'Name must not be Empty';
+                              }
                               return null;
                             },
                             label: 'Name',
@@ -60,8 +61,9 @@ class SettingsScreen extends StatelessWidget {
                             controller: emailCntrlr,
                             type: TextInputType.emailAddress,
                             validate: (String? value) {
-                              if (value!.isEmpty)
+                              if (value!.isEmpty) {
                                 return 'Email must not be Empty';
+                              }
                               return null;
                             },
                             label: 'example@gmail.com',
@@ -72,8 +74,9 @@ class SettingsScreen extends StatelessWidget {
                             controller: phoneCntrlr,
                             type: TextInputType.phone,
                             validate: (String? value) {
-                              if (value!.isEmpty)
+                              if (value!.isEmpty) {
                                 return 'Phone must not be Empty';
+                              }
                               return null;
                             },
                             label: 'Phone',
@@ -95,6 +98,9 @@ class SettingsScreen extends StatelessWidget {
                           defaultButton(
                               function: () {
                                 signOut(context);
+                                nameCntrlr.clear();
+                                emailCntrlr.clear();
+                                phoneCntrlr.clear();
                               },
                               text: 'Logout'),
                         ],
