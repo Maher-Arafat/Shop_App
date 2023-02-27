@@ -55,8 +55,8 @@ class FavoritesData {
 
 class Product {
   int? id;
-  dynamic price;
-  dynamic oldPrice;
+  double? price;
+  double? oldPrice;
   int? discount;
   String? image;
   String? name;

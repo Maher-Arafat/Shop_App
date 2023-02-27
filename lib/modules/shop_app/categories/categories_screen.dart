@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:newapp/modules/category_details/category_details.dart';
+import 'package:newapp/modules/shop_app/category_details/category_details.dart';
 import 'package:newapp/shared/components/components.dart';
 import 'package:newapp/shared/cubit/appcubit/cubit.dart';
 
@@ -25,10 +25,10 @@ class CategoryScreen extends StatelessWidget {
       builder: (context, state) {
         return ListView.separated(
           itemBuilder: (context, index) => builCategoryItem(
-            ShopCubit.get(context).categoryModel!.data!.data![index],context,
+            ShopCubit.get(context).categoryModel!.data.data[index],context,
           ),
           separatorBuilder: (context, idx) => myDivder(),
-          itemCount: ShopCubit.get(context).categoryModel!.data!.data!.length,
+          itemCount: ShopCubit.get(context).categoryModel!.data.data.length,
         );
       },
     );
@@ -41,14 +41,14 @@ class CategoryScreen extends StatelessWidget {
           child: Row(
             children: [
               Image(
-                image: NetworkImage(model.image!),
+                image: NetworkImage(model.image),
                 width: 80,
                 height: 80,
                 fit: BoxFit.cover,
               ),
               const SizedBox(width: 20),
               Text(
-                model.name!,
+                model.name,
                 style:const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,

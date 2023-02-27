@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newapp/layout/shop_app/cubit/states.dart';
 
-import 'package:newapp/modules/category_details/category_details.dart';
+import 'package:newapp/modules/shop_app/category_details/category_details.dart';
 import 'package:newapp/modules/shop_app/products/products_detail_screen.dart';
 import 'package:newapp/shared/components/components.dart';
 import 'package:newapp/shared/cubit/appcubit/cubit.dart';
@@ -104,11 +104,11 @@ class ProductsScreen extends StatelessWidget {
                         physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, idx) => buildCategoryItem(
-                            categoriesModel.data!.data![idx], context),
+                            categoriesModel.data.data[idx], context),
                         separatorBuilder: (context, idx) => const SizedBox(
                               width: 10,
                             ),
-                        itemCount: categoriesModel!.data!.data!.length),
+                        itemCount: categoriesModel!.data.data.length),
                   ),
                   const SizedBox(height: 20),
                   const Text(
@@ -129,7 +129,7 @@ class ProductsScreen extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 mainAxisSpacing: 1,
                 crossAxisSpacing: 1,
-                childAspectRatio: 1 / 1.63,
+                childAspectRatio: 1 / 1.99,
                 crossAxisCount: 2,
                 children: List.generate(
                   model!.data!.products!.length,
@@ -189,22 +189,27 @@ class ProductsScreen extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Text(
-                          '${model.price.round()}',
-                          maxLines: 2,
-                          style: TextStyle(fontSize: 14, color: defaultColor),
-                        ),
-                        const SizedBox(width: 5.0),
-                        if (model.discount != 0)
-                          Text(
-                            '${model.oldPrice.round()}',
-                            maxLines: 2,
-                            style: const TextStyle(
-                              fontSize: 10,
-                              color: Colors.grey,
-                              decoration: TextDecoration.lineThrough,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '${model.price}',
+                              maxLines: 2,
+                              style:
+                                  TextStyle(fontSize: 14, color: defaultColor),
                             ),
-                          ),
+                            if (model.discount != 0)
+                              Text(
+                                '${model.oldPrice}',
+                                maxLines: 2,
+                                style: const TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.grey,
+                                  decoration: TextDecoration.lineThrough,
+                                ),
+                              ),
+                          ],
+                        ),
                         const Spacer(),
                         IconButton(
                           onPressed: () {
@@ -228,7 +233,93 @@ class ProductsScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ShopCubit.get(context).productsQuantity[model.id] == null
+                    ? defaultButton(
+                        text: "Add To Cart",
+                        function: () {
+                          ShopCubit.get(context).changeCartItem(model.id!);
+                        },
+                      )
+                    : SizedBox(
+                        width: double.infinity,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  ShopCubit.get(context)
+                                      .changeQuantityItem(model.id!);
+                                },
+                                child: Container(
+                                  width: 30,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                      color: defaultColor,
+                                      borderRadius: BorderRadius.circular(5),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: defaultColor,
+                                          blurRadius: 1,
+                                          offset:const Offset(1, 1),
+                                        )
+                                      ]),
+                                  child: const Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                    size: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              ShopCubit.get(context)
+                                  .productsQuantity[model.id]
+                                  .toString(),
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  ShopCubit.get(context).changeQuantityItem(
+                                    model.id!,
+                                    icrnmt: false,
+                                  );
+                                },
+                                child: Container(
+                                  width: 30,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                      color: defaultColor,
+                                      borderRadius: BorderRadius.circular(5),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: defaultColor,
+                                          blurRadius: 2,
+                                          offset: const Offset(0.3, 0.3),
+                                        )
+                                      ]),
+                                  child: Icon(
+                                    Icons.remove,
+                                    color: Colors.white,
+                                    size: 20,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+              ),
             ],
           ),
         ),
@@ -241,7 +332,7 @@ class ProductsScreen extends StatelessWidget {
           alignment: AlignmentDirectional.bottomCenter,
           children: [
             Image(
-              image: NetworkImage(model.image!),
+              image: NetworkImage(model.image),
               height: 100,
               width: 100,
               fit: BoxFit.cover,
@@ -250,7 +341,7 @@ class ProductsScreen extends StatelessWidget {
               width: 100,
               color: Colors.black.withOpacity(.8),
               child: Text(
-                model.name!,
+                model.name,
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

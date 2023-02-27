@@ -6,7 +6,9 @@ const HOME = 'home';
 
 const GET_CATEGORIES = 'categories';
 
+const CART = 'carts';
 
+const ORDER = 'orders';
 
 const FAVORITES = 'favorites';
 
